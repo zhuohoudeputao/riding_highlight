@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "riding_highlight"
+version = "0.1.0"
+description = "从原始骑行视频(GPS元数据)到高光视频的完整pipeline"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "zhuohoudeputao" }]
+keywords = ["gopro", "gps", "go-slow", "cycling", "highlight", "gpmf"]
+
+dependencies = [
+    "numpy>=1.22",
+]
+
+[project.optional-dependencies]
+plot = ["matplotlib>=3.5"]
+all = ["matplotlib>=3.5"]
+
+[project.scripts]
+riding = "riding_highlight.cli:main"
+
+[tool.setuptools]
+packages = ["riding_highlight"]

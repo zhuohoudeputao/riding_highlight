@@ -1,0 +1,27 @@
+# 输出产物
+output/
+charts/
+detect/
+*.mp4
+*.gps.json
+*.gpmd.bin
+.render_tmp/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# 编辑器/系统
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# 环境
+.env
+.env.local

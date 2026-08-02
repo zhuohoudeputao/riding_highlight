@@ -1,0 +1,9 @@
+# 核心依赖
+numpy>=1.22
+
+# 绘图 (可选)
+matplotlib>=3.5
+
+# 系统依赖 (非Python):
+#   ffmpeg + ffprobe (渲染用, 建议 libx264)
+#   - 可选硬件加速: -hwaccel vaapi (Intel/AMD), cuda (NVIDIA)
