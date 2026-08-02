@@ -19,6 +19,8 @@ from .clean import (flag_noise, smooth_median, per_second,  # noqa: F401
 from .analyze import (detect_processes, select_highlights,  # noqa: F401
                       process_speed)
 from .render import render_edl, extract_seg  # noqa: F401
+from .dash import buildup_hud, draw_gauge, draw_info_panel  # noqa: F401
+from .narration import gen_narration, ride_stats  # noqa: F401
 
 __all__ = [
     'parse', 'iter_klv', 'extract_samples',
@@ -27,4 +29,6 @@ __all__ = [
     'flag_noise', 'smooth_median', 'per_second', 'accel_1hz', 'load_10hz',
     'detect_processes', 'select_highlights', 'process_speed',
     'render_edl', 'extract_seg',
+    'buildup_hud', 'draw_gauge', 'draw_info_panel',
+    'gen_narration', 'ride_stats',
 ]

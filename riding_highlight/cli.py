@@ -153,6 +153,27 @@ def cmd_render(args):
     return 0 if ok else 1
 
 
+def cmd_narrate(args):
+    from .narration import gen_narration
+    from .audio import build_audio
+    gps = X.load_json(args.gps)
+    nar = gen_narration(gps, args.ride_name, args.style)
+    print('解说词:')
+    print('  [intro]', nar['intro'])
+    for s in nar['segments']:
+        print(f'  [{s["start"] // 60}:{s["start"] % 60:02d}]', s['text'])
+    print('  [outro]', nar['outro'])
+    bg = args.bg_music if os.path.exists(args.bg_music) else None
+    if bg is None and args.bg_music:
+        print(f'  [警告] 背景乐不存在: {args.bg_music}')
+    if bg:
+        out = build_audio(nar, args.output, bg_music=bg)
+    else:
+        out = build_audio(nar, args.output)
+    print(f'解说音频: {out}')
+    return 0
+
+
 def main(argv=None):
     argv = argv or sys.argv[1:]
     ap = argparse.ArgumentParser(prog='riding', description='骑行高光视频 pipeline')
@@ -196,6 +217,15 @@ def main(argv=None):
     p.add_argument('--hwaccel', default='vaapi')
     p.add_argument('--scale', default='1920:1080')
     p.set_defaults(func=cmd_render)
+
+    # narrate
+    p = sub.add_parser('narrate', help='生成解说音频')
+    p.add_argument('--gps', required=True, help='detect/*.gps.json')
+    p.add_argument('--ride-name', default='骑行')
+    p.add_argument('--style', default='default', choices=['default', 'sporty', 'calm'])
+    p.add_argument('--bg-music', default='', help='背景乐路径 (可选)')
+    p.add_argument('-o', '--output', default='narration.m4a')
+    p.set_defaults(func=cmd_narrate)
 
     args = ap.parse_args(argv)
     return args.func(args)
